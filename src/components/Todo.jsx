@@ -1,8 +1,9 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Tags from "./Tags";
 import Spinner from "./Spinner";
 import TodoCard from "./TodoCard";
 import { Link } from "react-router-dom";
+import Note from "./Note";
 const Todo = ({ Data, deleteData }) => {
   // For Random Card Color
   let prevColor = "";
@@ -114,12 +115,25 @@ const Todo = ({ Data, deleteData }) => {
     }
   };
   // -----------------------------------------
-  const [loading,setLoading]=useState(true);
-  useEffect(()=>{
-    setTimeout(()=>{
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
       setLoading(false);
-    },1000);
+    }, 1000);
   });
+  function findObjectByValue(arr, key, value) {
+    // Use the find method to get the first object that matches the key and value
+    const foundObject = arr.find((obj) => obj[key] === value);
+  
+    return foundObject || null;
+  }
+  
+  
+  const [modalData,setModalData]=useState({});
+  const show = (dataId) => {
+    setModalData(findObjectByValue(Data,"key",dataId));
+    document.querySelector(".show").click();
+  };
   return (
     <>
       <div className="container">
@@ -132,22 +146,28 @@ const Todo = ({ Data, deleteData }) => {
           <Tags active="1" value="ready" />
         </div>
         <div className="todoBody">
-          {
-            loading?<Spinner/>:
-          Data.length>0?Data.map((e) => {
-            return (
-              <TodoCard
-                key={e.key}
-                color={createColor()}
-                label={e.label}
-                avatar={createAvatar()}
-                text={e.title}
-                dataId={e.key}
-                deleteData={deleteData}
-              />
-            );
-          }):<div className="emptyInfo"><p>No Notes 😭</p></div>
-        }
+          {loading ? (
+            <Spinner />
+          ) : Data.length > 0 ? (
+            Data.map((e) => {
+              return (
+                <TodoCard
+                  show={show}
+                  key={e.key}
+                  color={createColor()}
+                  label={e.label}
+                  avatar={createAvatar()}
+                  text={e.title}
+                  dataId={e.key}
+                  deleteData={deleteData}
+                />
+              );
+            })
+          ) : (
+            <div className="emptyInfo">
+              <p>No Notes 😭</p>
+            </div>
+          )}
         </div>
         <Link to="/add">
           <div className="addBtn">
@@ -155,6 +175,7 @@ const Todo = ({ Data, deleteData }) => {
           </div>
         </Link>
       </div>
+      <Note data={modalData} />
     </>
   );
 };

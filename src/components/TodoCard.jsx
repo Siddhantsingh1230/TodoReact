@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Heart from "./Heart";
 
-const TodoCard = ({ avatar, label, text, color,dataId,deleteData }) => {
+const TodoCard = ({ avatar, label, text, color, dataId, deleteData, show }) => {
   const [style, setStyle] = useState({});
   useEffect(() => {
     if (window.innerWidth <= 765) {
@@ -15,7 +15,6 @@ const TodoCard = ({ avatar, label, text, color,dataId,deleteData }) => {
         alignItems: "center",
         gap: "1rem",
         backgroundColor: color,
-        
       });
     } else {
       setStyle({
@@ -29,13 +28,13 @@ const TodoCard = ({ avatar, label, text, color,dataId,deleteData }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column",  
-        cursor: "pointer",
+        flexDirection: "column",
+        cursor: "auto",
         marginRight: "1.25rem",
         userSelect: "none",
       });
     }
-    window.addEventListener('resize',()=>{
+    window.addEventListener("resize", () => {
       if (window.innerWidth <= 765) {
         setStyle({
           marginBottom: "0.58rem",
@@ -47,7 +46,6 @@ const TodoCard = ({ avatar, label, text, color,dataId,deleteData }) => {
           alignItems: "center",
           gap: "1rem",
           backgroundColor: color,
-          
         });
       } else {
         setStyle({
@@ -61,35 +59,43 @@ const TodoCard = ({ avatar, label, text, color,dataId,deleteData }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexDirection: "column",  
+          flexDirection: "column",
           cursor: "pointer",
           marginRight: "1.25rem",
           userSelect: "none",
         });
       }
     });
-    
   }, []);
+
   return (
     <>
-      <div className="cardContainer" style={style}>
+      <div className="cardContainer " style={style}>
         <div className="cardAvatar">{avatar ? <p>{avatar}</p> : <p>💙</p>}</div>
         <div className="cardTitle">
           <div className="label">{label}</div>
           <div className="note">{text}</div>
         </div>
         <div className="action">
-          <span className="edit btn">
-            <i className="ri-pencil-fill"></i>
+          <span
+            onClick={() => {
+              show(dataId);
+            }}
+            className="edit btn"
+          >
+            <i className="fa-solid fa-eye" style={{color: "#000000",}}></i>
           </span>
 
-          <span onClick={()=>{
-            deleteData(dataId);
-          }} className="delete btn">
+          <span
+            onClick={() => {
+              deleteData(dataId);
+            }}
+            className="delete btn"
+          >
             <i className="fa-solid fa-trash" style={{ color: "#000" }}></i>
           </span>
         </div>
-        <Heart/>
+        <Heart />
       </div>
     </>
   );
