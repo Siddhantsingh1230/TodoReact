@@ -1,0 +1,572 @@
+body,
+html {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* border: 1px solid red; */
+  font-family: "Poppins", sans-serif;
+}
+a{
+  text-decoration: none;
+}
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.title {
+  font-size: 3rem;
+  margin-top: 01rem;
+  color: white;
+  width: 100%;
+  font-weight: 600;
+  line-height: 1.09;
+}
+.tags {
+  width: 100%;
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  padding-inline: 0.2rem;
+  cursor: grab;
+}
+
+.tags::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+.tagContainer {
+  padding: 0.3rem 1rem;
+  color: white;
+  outline: 1.45px solid white;
+  font-size: 1.25rem;
+  border-radius: 2rem;
+  margin: 1.85rem 0;
+  margin-right: 0.45rem;
+}
+.todoBody {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-bottom:1rem;
+}
+
+.cardContainer {
+  flex-shrink: 0;
+  flex-basis: 1;
+  height: 21rem;
+  position: relative;
+  width: 15rem;
+  background-color: #e4d447;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  margin-right: 1.25rem;
+  user-select: none;
+}
+
+.cardAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  background-color: white;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.cardTitle {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  text-transform: capitalize;
+  width:60%;
+  height: 4rem;
+  overflow: hidden;
+
+}
+.cardTitle .label {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1rem;
+}
+.cardTitle .note {
+  font-size: 2rem;
+}
+.action {
+  width: 70%;
+  display: flex;
+  gap: 2rem;
+  background-color: #000;
+  border-radius: 1.5rem 0.65rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0.8rem 0.3rem;
+  margin-top: 1.5rem;
+}
+.action .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e8e8e8;
+  width: 25%;
+  height: 1.8rem;
+  border-radius: 0.5rem;
+  transition: all ease 0.2s;
+}
+.action .delete {
+  background-color: #f93b3b;
+}
+
+.cardContainer::before,
+.cardContainer::after {
+  position: absolute;
+  content: "";
+  width: 20%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  background-color: lightblue;
+  transition: all 0.5s;
+}
+
+.cardContainer::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.cardContainer::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 15px;
+}
+.btn:hover {
+  scale: 0.93;
+}
+.btn:active {
+  opacity: 0.5;
+}
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+
+/* Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+  border-radius: 15px;
+  border: 1px solid #ffffff;
+}
+
+.addBtn {
+  position: fixed;
+  right: 2rem;
+  bottom: 86%;
+  background-color: #3457d5;
+  padding: 0.3rem 1rem;
+  border-radius: 1rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: all ease 0.2s, opacity ease 0.6s;
+  user-select: none;
+  cursor: cell;
+}
+.addBtn::after{
+  content: " Add";
+}
+
+.addBtn:active {
+  scale: 0.96;
+}
+.addBtn:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Heart Like CSS */
+.con-like {
+  --red: rgb(255, 0, 0);
+  position: relative;
+  width: 60px;
+  height: 60px;
+  scale: 0.5;
+  filter:drop-shadow(7px 10px 10px black);
+
+}
+
+.con-like .like {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
+  
+}
+
+.con-like .checkmark {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.con-like .outline,
+.con-like .filled {
+  fill: var(--red);
+  position: absolute;
+}
+
+.con-like .filled {
+  animation: kfr-filled 0.8s;
+  display: none;
+}
+
+.con-like .celebrate {
+  position: absolute;
+  animation: kfr-celebrate 0.6s;
+  animation-fill-mode: forwards;
+  display: none;
+}
+
+.con-like .poly {
+  stroke: var(--red);
+  fill: var(--red);
+}
+
+.con-like .like:checked ~ .checkmark .filled {
+  display: block
+}
+
+.con-like .like:checked ~ .checkmark .celebrate {
+  display: block
+}
+
+@keyframes kfr-filled {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes kfr-celebrate {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+    display: none;
+  }
+}
+/* Add Form CSS */
+.addFormContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.form {
+  background-color: #fff;
+  display: block;
+  padding: 1rem;
+  max-width: 350px;
+  scale: 1.2;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #000;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container input, .form button {
+  outline: none;
+  border: 1px solid #e5e7eb;
+  margin: 8px 0;
+}
+
+.input-container input {
+  background-color: #fff;
+  padding: 1rem;
+  padding-right: 3rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  width: 300px;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.input-container span {
+  display: grid;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  place-content: center;
+}
+
+.input-container span svg {
+  color: #9CA3AF;
+  width: 1rem;
+  height: 1rem;
+}
+
+.submit {
+  display: block;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  background-color: #4F46E5;
+  color: #ffffff;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  width: 100%;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+  transition: all ease 0.2s;
+}
+.submit:hover{
+  opacity: 0.8;
+}
+.submit:active{
+ scale: 0.978;
+}
+
+.back{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  font-size: 2rem;
+  opacity: 0.65;
+}
+.back:hover{
+  scale: 1.2;
+  opacity: 1;
+}
+.emptyInfo{
+  width: 100%;
+  font-size: 3rem;
+  opacity: 0.6;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20rem;
+}
+.spinnerContainer{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 20rem;
+}
+.spinner {
+  width: 44px;
+  height: 44px;
+  animation: spinner-y0fdc1 2s infinite ease;
+  transform-style: preserve-3d;
+ }
+ 
+ .spinner > div {
+  background-color: rgba(0,77,255,0.2);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  border: 2px solid #004dff;
+ }
+ 
+ .spinner div:nth-of-type(1) {
+  transform: translateZ(-22px) rotateY(180deg);
+ }
+ 
+ .spinner div:nth-of-type(2) {
+  transform: rotateY(-270deg) translateX(50%);
+  transform-origin: top right;
+ }
+ 
+ .spinner div:nth-of-type(3) {
+  transform: rotateY(270deg) translateX(-50%);
+  transform-origin: center left;
+ }
+ 
+ .spinner div:nth-of-type(4) {
+  transform: rotateX(90deg) translateY(-50%);
+  transform-origin: top center;
+ }
+ 
+ .spinner div:nth-of-type(5) {
+  transform: rotateX(-90deg) translateY(50%);
+  transform-origin: bottom center;
+ }
+ 
+ .spinner div:nth-of-type(6) {
+  transform: translateZ(22px);
+ }
+ 
+ @keyframes spinner-y0fdc1 {
+  0% {
+   transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+  }
+ 
+  50% {
+   transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+  }
+ 
+  100% {
+   transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+  }
+ }
+
+/* small screen style */
+@media (max-width: 765px) {
+  .title {
+    font-size: 3rem;
+    color: white;
+    width: 100%;
+    font-weight: 600;
+  }
+  .todoBody {
+    flex-direction: column;
+    overflow: hidden;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    gap: 0;
+    
+    
+  }
+  .todoBody::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+  }
+  .cardContainer {
+    margin-bottom: 0.58rem;
+    display: flex;
+    flex-direction: row;
+    height: 6rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    cursor:auto;
+  }
+  .cardAvatar {
+    border-radius: 50%;
+    height: 4rem;
+    width: 4rem;
+    background-color: white;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+  .action {
+    display: none;
+  }
+  .cardContainer::before,
+  .cardContainer::after {
+    display: none;
+  }
+  .addBtn {
+    position: fixed;
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 1.6rem;
+    box-shadow: 0px 0px 15px black;
+    height: 3.45rem;
+    width: 3.45rem;
+    border-radius: 50%;
+  }
+  .addBtn::after{
+    content: '';
+  }
+  .addBtn:hover {
+    background-color: #3457d5;
+    color: white;
+  }
+  .con-like {
+    --red: rgb(255, 0, 0);
+    position: relative;
+    width: 55px;
+    height: 55px;
+    scale: 0.5;
+    filter:drop-shadow(7px 10px 10px black);
+  
+  }
+  .form {
+    scale: .95;
+  }
+  .back{
+    left: 1rem;
+    top: 1.5rem;
+    font-size: 1.6rem;
+  }
+  .cardTitle {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    text-transform: capitalize;
+    width: 46%;
+    height: 4rem;
+    overflow: hidden;
+  }
+}
+
+
