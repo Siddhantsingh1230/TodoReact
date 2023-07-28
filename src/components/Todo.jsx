@@ -142,8 +142,10 @@ const Todo = ({ Data, deleteData }) => {
           Notes
         </div>
         <div className="tags">
-          <Tags active="0" value="siddhant" />
-          <Tags active="1" value="ready" />
+          <Tags active="1" value="siddhant" />
+          <Tags active="0" value="home" />
+          <Tags active="0" value="work" />
+          <Tags active="0" value="college" />
         </div>
         <div className="todoBody">
           {loading ? (
